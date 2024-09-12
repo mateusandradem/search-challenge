@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "search-challenge"
+version = "0.1.0"
+description = "Luizalabs search challenge"
+authors = ["Mateus Andrade <mateusandrade080@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[tool.poetry.group.test]
+optional=true
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.3"
+pytest-cov = "^5.0.0"
+
+[tool.poetry.group.lint]
+optional=true
+[tool.poetry.group.lint.dependencies]
+ruff = "^0.6.4"
+black = "^24.8.0"
+pre-commit = "^3.8.0"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+lint.select = ["I00", "E", "F", "W"]
+
+[tool.black]
+line-length = 120
+target-version = ['py39']
