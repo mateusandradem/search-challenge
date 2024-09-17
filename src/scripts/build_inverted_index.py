@@ -4,13 +4,13 @@ from collections import defaultdict
 
 indexes = defaultdict(list)
 
-for filename in os.listdir("data"):
+for filename in sorted(os.listdir("data")):
     file_path = os.path.join("data", filename)
 
-    with open(file_path, "r", encoding="utf-8") as movie_file:
+    with open(file_path, "r") as movie_file:
         lines = movie_file.readlines()
         for line in lines:
-            words = line.split()
+            words = set(line.split())
             for word in words:
                 indexes[word].append(filename)
 
