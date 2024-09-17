@@ -1,7 +1,7 @@
 import json
 
 
-def search_words(words: str) -> dict[str, list[str]]:
+def search_words(words: str) -> dict[str, set[str]]:
     with open("processed_word_indexes.json") as file:
         indexes = json.loads(file.read())
 
