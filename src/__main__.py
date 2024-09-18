@@ -1,5 +1,4 @@
 import typer
-
 from words import search_words
 
 
