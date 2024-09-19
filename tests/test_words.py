@@ -5,16 +5,6 @@ import pytest
 from src.words import search_words
 
 
-@pytest.fixture
-def json_indexed_words():
-    return """
-    {
-        "walt": ["cowboy.txt", "alice.txt", "alpine.txt"],
-        "disney": ["cowboy.txt", "alice.txt"]
-    }
-    """
-
-
 @pytest.mark.parametrize(
     "words,expected_matches",
     [
