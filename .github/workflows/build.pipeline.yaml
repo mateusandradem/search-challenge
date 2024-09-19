@@ -1,0 +1,78 @@
+name: Building search challenge project
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'pre-commit-config.yaml'
+
+env:
+  python_version: 3.12
+  poetry_version: 1.8.1
+  poetry_home: "/opt/poetry"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{env.python_version}}
+
+      - name: Install poetry ${{env.poetry_version}}
+        shell: bash
+        run: |
+          curl -sSL https://install.python-poetry.org | POETRY_HOME=${{env.poetry_home}} python3 - --version ${{env.poetry_version}}
+          export PATH="${{env.poetry_home}}/bin:$PATH"
+          poetry --version
+
+      - name: Install test dependencies
+        shell: bash
+        run: |
+          export PATH="${{env.poetry_home}}/bin:$PATH"
+          poetry install --with test
+
+      - name: Run unit tests
+        shell: bash
+        run: |
+          export PATH="${{env.poetry_home}}/bin:$PATH"
+          poetry run pytest tests/ --cov . --cov-report html
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{env.python_version}}
+
+      - name: Install poetry ${{env.poetry_version}}
+        shell: bash
+        run: |
+          curl -sSL https://install.python-poetry.org | POETRY_HOME=${{env.poetry_home}} python3 - --version ${{env.poetry_version}}
+          export PATH="${{env.poetry_home}}/bin:$PATH"
+          poetry --version
+
+      - name: Install dev dependencies
+        shell: bash
+        run: |
+          export PATH="${{env.poetry_home}}/bin:$PATH"
+          poetry install --only lint
+
+      - name: Run ruff
+        shell: bash
+        continue-on-error: true
+        run: |
+          export PATH="${{env.poetry_home}}/bin:$PATH"
+          poetry run ruff check .
+
+      - name: Run black
+        shell: bash
+        continue-on-error: true
+        run: |
+          export PATH="${{env.poetry_home}}/bin:$PATH"
+          poetry run black . --check
