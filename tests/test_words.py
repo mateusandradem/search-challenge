@@ -2,7 +2,7 @@ from unittest.mock import mock_open, patch
 
 import pytest
 
-from src.words import search_words
+from search.words import search_words
 
 
 @pytest.mark.parametrize(

@@ -1,4 +1,4 @@
-name: Building search challenge project
+name: Search Challenge
 
 on:
   push:

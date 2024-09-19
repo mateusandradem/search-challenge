@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Luizalabs search challenge"
 authors = ["Mateus Andrade <mateusandrade080@gmail.com>"]
 readme = "README.md"
-packages = [{ include = "src" }]
+packages = [{ include = "search" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
